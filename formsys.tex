@@ -1,6 +1,7 @@
 \documentclass{article}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage[utf8]{inputenc}
 \begin{document}
 \section{Aussagenlogik}
 \subsection{Signatur $\Sigma$}
@@ -75,6 +76,11 @@ mit:
     \[ \{ A\} \models_\Sigma B \text{ und } \{B\} \models_\Sigma A \]
 \end{description}
 \subsection{Shannon-Formeln}
+Der Shannon Operator ist definiert als "if-else-then" Operator.
+$sh(A, B, C)$
+ist gleich B, wenn A falsch ist. ist gleich C wenn A wahr ist.
+
+$sh(A, B, C) \leftrightarrow (\lnot A \land B) \lor (A \land C)$
 
 \subsection{Horn-Formeln}
 Eine aussagenlogische Formel $A$ ist eine \textit{Horn-Formel}, wenn
