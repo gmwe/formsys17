@@ -1,0 +1,267 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\begin{document}
+\section{Aussagenlogik}
+\subsection{Signatur $\Sigma$}
+Eine (aussagenlogische) \textit{Signatur} ist eine abz\"ahlbare Menge $\Sigma$
+von Symbolen, etwa
+\begin{align*}
+    \Sigma &= \{P_0 , \dots, P_n \} \\ 
+    \text{oder } \Sigma &= \{P_0 , P_1, \dots\}
+\end{align*}
+Die Elemente von $\Sigma$ hei{\ss}en auch \textit{atomare Aussagen}, \textit{Atome}
+oder \textit{Aussagevariablen}.
+
+\subsection{Formeln $For0_\Sigma$}
+$For0_\Sigma$ ist die Menge der \textit{Formeln} \"uber $\Sigma$
+induktiv definiert durch
+\[ 1 \in For0_\Sigma, 0 \in For0_\Sigma, \Sigma \subseteq For0_\Sigma \]
+
+Wenn $A, B \in For0_\Sigma$, dann sind auch
+\[ \lnot A, (A \land B), (A \lor B), (A \rightarrow B), (A \leftrightarrow B) \]
+Elemente von $For0_\Sigma$
+
+\subsection{Interpretation $I$}
+Es sei $\Sigma$ eine aussagenlogische Signatur. Eine \textit{Interpretation}
+\"uber $\Sigma$ ist eine beliebige Abbildung
+\[ I : \Sigma \rightarrow \{W, F \} \]
+
+\subsection{Auswertung $val_I$}
+Zu jeder Interpretation $I$ \"uber $\Sigma$ wird eine zugeh\"orige \textit{Auswertung} der Formeln \"uber $\Sigma$ definiert
+\[ val_I : For0_\Sigma \rightarrow {W, F} \]
+mit:
+\begin{align*}
+    val_I(1) &= W \\
+    val_I(0) &= F \\
+    val_I(P) &= I(P) \qquad \text{f\"ur jedes } P \in \Sigma \\
+    val_I(\lnot A) &=  \begin{cases}
+        F \text{ falls } &val_I(A) = W \\
+        W \text{ falls } &val_I(A) = F \\
+    \end{cases}
+\end{align*}
+
+\subsection{Logische Grundbegriffe}
+\begin{description}
+    \item[Modell] Ein \textit{Modell} einer Formel $A \in For0_\Sigma$ ist eine Interpretation $I$ \"uber $\Sigma$ mit $val_I(A) = W$.
+
+    ( Eine Belegung $I$ der Aussagenvariablen die die Formel $A$ wahr macht ist ein Modell.)
+
+\item[Modell - Formelmenge] Zu einer \textit{Formelmenge} $M \subseteq For0_\Sigma$ ist ein Modell von $M$ eine Interpretation I, welche Modell von jedem $A \in M$ ist. 
+    
+    (Ein Modell - mit einer Interpretation $I$ - einer Formelmenge ist f\"ur jede Formel in der Menge ein Modell.)
+
+\item[Allgemeing\"ultigkeit]
+    $A \in For0_\Sigma$ hei{\ss}t \textit{allgemeing\"ultig} gdw. 
+    $val_I(A) = W$ f\"ur jede Interpretation I \"uber $\Sigma$.
+
+    (Eine Formel ist allgemein\"ultig wenn sie unter jeder Interpretation wahr ist.)
+
+\item[Erf\"ulbar]
+    $A \in For0_\Sigma$ hei{\ss}t \textit{erf\"ullbar} gdw.
+    es gibt eine Interpretation $I$ \"uber $\Sigma$ mit $val_I(A) = W$.
+
+    (Eine Formel ist erf\"ullbar wenn sie unter einer Interpretation wahr ist.)
+
+\item[Folgerung $\models$]
+    Sei $\Sigma$ eine Signatur, $M \subseteq For0_\Sigma, A \in For0_\Sigma$ \\
+    $M \models A$ lies: \textit{aus M folgt A} gdw.
+    Jedes Modell von $M$ ist auch Modell von $A$.
+
+    (Jede Interpretation von $M$ ist auch eine Interpretation von $A$)
+
+\item[Logische \"Aquivalenz]
+    $A, B \in For0_\Sigma$ hei{\ss}en \textit{logisch \"aquivalent} gdw.
+    \[ \{ A\} \models_\Sigma B \text{ und } \{B\} \models_\Sigma A \]
+\end{description}
+\subsection{Shannon-Formeln}
+
+\subsection{Horn-Formeln}
+Eine aussagenlogische Formel $A$ ist eine \textit{Horn-Formel}, wenn
+\begin{itemize}
+    \item $A$ in KNF ist
+    \item jede Disjunktion in $A$ h\"ochstens ein positives Literal enth\"alt
+\end{itemize}
+Alternative Schreibweisen:
+\begin{align*}
+    \lnot P_1 \lor \cdots \lor \lnot P_n \lor A &\equiv
+P_1 \land \cdots \land P_n \rightarrow A \\
+    \lnot P_1 \lor \cdots \lor \lnot P_n &\equiv
+P_1 \land \cdots \land P_n \rightarrow 0
+\end{align*}
+Bezeichnungen: $\lnot P_1 \lor \cdots \lor \lnot P_n$: \textit{Rumpf},
+\qquad $A$: \textit{Kopf} (bei leerem Rumpf: \textit{Fakt})
+
+\paragraph{Erf\"ullbarkeit} 
+F\"ur Horn-Formeln ist die Erf\"ullbarkeit in 
+$O(n^2)$ entscheidbar.
+
+\subsection{Davis-Putnam-Logemann-Loveland (DPLL) Verfahren}
+Wichtigstes Verfahren zur Entscheidung des allgemeinen Erf\"ullbarkeitsproblems (SAT-Problem). Eingabe in KNF. Worst case complexity $O(2^n)$.
+
+
+\subsection{Schreibweisen}
+$\Box$ f\"ur die leere Klausel \\
+$\emptyset$ f\"ur die leere Klauselmenge \\
+Es gilt: $I(\emptyset) = W$ \\
+Es gilt: $I(\Box) = F$ \\
+
+\section{Pr\"adikatenlogik erster Stufe}
+\subsection{Logische Zeichen}
+\paragraph{Wie in der Aussagenlogik:}
+$\lnot, \land, \lor, \rightarrow, \leftrightarrow, (, )$
+\paragraph{Neu:} 
+\begin{align*}
+    \forall \qquad &\text{Allquantor} \\
+    \exists  \qquad &\text{Existenzquantor} \\
+    v_i  \qquad &\text{Individuenvariablen, } i \in \mathbb{N} \\
+    \doteq  \qquad &\text{objektsprachliches Gleichheitssymbol} \\
+    ,  \qquad &\text{Komma} \\
+\end{align*}
+Mit \textit{Var} bezeichnet man die zur Verf\"ugung stehenden Variablen.
+
+\subsection{Signatur}
+Eine \textit{Signatur} ist ein Tripel $\Sigma = ( F_\Sigma, P_\Sigma,
+\alpha_\Sigma)$ mit:
+\begin{itemize}
+    \item $F_\Sigma, P_\Sigma$ sind endliche oder
+        abz\"ahlbar unendliche Mengen
+    \item $F_\Sigma, P_\Sigma$ und die Menge der Sondersymbole
+        sind paarweise disjunkt
+    \item $\alpha_\Sigma: F_\Sigma \cup P_\Sigma \rightarrow \mathbb{N}$.
+\end{itemize}
+$f \in F_\Sigma$ hei{\ss}t \textit{Funktionssymbol}, 
+$p \in P_\Sigma$ hei{\ss}t \textit{Pr\"adikatssymbol}.\\
+f ist \textit{n-stelliges Funktionssymbol}, wenn $\alpha_\Sigma(f) = n$; \\
+p ist \textit{n-stelliges Pr\"adikatssymbol}, wenn $\alpha_\Sigma(p) = n$; \\
+Ein nullstelliges Funktionssymbol hei{\ss}t auch \textit{Konstantensymbol}
+oder kurz \textit{Konstante}, \\
+ein nullsteliges Pr\"adikatssymbol ist ein \textit{aussagenlogisches Atom}.
+
+\subsection{Terme}
+$Term_\Sigma$, die Menge der \textit{Terme \"uber $\Sigma$}, ist induktiv definiert durch
+\begin{enumerate}
+    \item $Var \subseteq Term_\Sigma$
+    \item Mit $f \in F_\Sigma, $ \\
+        $\alpha_\Sigma(f) = n, \\
+        t_1, \cdots, t_n \in Term_\Sigma$ \\
+        ist auch $f(t_1, \cdots, t_n) \in Term_\Sigma$
+\end{enumerate}
+Ein Term hei{\ss}t \textit{Grundterm}, wenn er keine Variablen enth\"alt.
+
+\subsection{Formeln}
+$At_\Sigma$ ist die Menge der \textit{atomaren Formeln} \"uber $\Sigma$:
+\begin{align*}
+    At_\Sigma := & \{s \doteq t | s,t \in Term_\Sigma \} \cup \\
+    & \{ p(t_1, \cdots t_n) | p \in P_\Sigma, \alpha_\Sigma(p) = n,
+    t_i \in Term_\Sigma \}
+\end{align*}
+\\
+$For_\Sigma$, die Menge der \textit{Formeln \"uber $\Sigma$}, ist 
+induktiv definiert durch
+\begin{enumerate}
+    \item ${1, 0} \cup At_\Sigma \subseteq For_\Sigma$
+    \item Mit $x \in Var$ und $A, B \in For_\Sigma$ sind ebenfalls in 
+        $For_\Sigma$: 
+        \[ \lnot A, (A \land B), (A \lor B), (A \rightarrow B),
+        (A \leftrightarrow B), \forall xA, \exists xA \]
+\end{enumerate}
+
+\paragraph{Substitution}
+Eine \textit{Substitution} ist eine Abbildung
+\[ \sigma : Var \rightarrow Term_\Sigma \]
+mit $\sigma(x) = x$ f\"ur fast alle $x \in Var$. \\
+$\sigma$ hei{\ss}t \textit{Grundsubstitution}, wenn f\"ur alle $x$ mit
+$\sigma(x) \neq x$ der Funktionswert $\sigma(x)$ ein Grundterm ist. \\
+\paragraph{kollisionsfreie Substitution}
+Eine Substitution $\sigma$ hei{\ss}t \textit{kollisionsfrei} f\"ur eine Formel $A$,
+wenn f\"ur jede Variable $z$ und jede Stelle freien Auftretens von $z$ in $A$ gilt: \\
+Diese Stelle liegt nicht im Wirkungsbereich eines Pr\"afixes $\forall x$ oder
+$\exists x$, wo $x$ eine Variable in $\sigma(z)$ ist.
+\[ \mu_1 = \{x/y\} \text{ist nicht kollisionsfrei f\"ur }
+\forall y p(x, y) \]
+
+\subsection{Interpretation}
+Es sei $\Sigma$ eine Signatur der PL1. \\
+Eine \textit{Interpretation} $D$ von $\Sigma$ ist ein Paar $(D, I)$ mit
+\begin{enumerate}
+    \item $D$ ist eine beliebige, nichtleere Menge
+    \item $I$ ist eine Abbildung der Signatursymbole, die
+        \begin{itemize}
+            \item jeder Konstanten $c$ ein Elemente $I(c) \in D$
+            \item f\"ur $n \geq 1$: jedem n-stelligen Funktionssymbol $f$
+                eine Funktion $I(f): D^n \rightarrow D$
+            \item jedem 0-stelligen Pr\"adikatssymbol P ein Wahrheitswert
+                $I(P) \in \{W, F\}$
+            \item f\"ur $n \geq 1$: jedem n-stelligen Pr\"adikatssymbol
+                $p$ eine n-stellige Relation $I(p) \subseteq D^n$ zuordnet.
+        \end{itemize}
+\end{enumerate}
+
+\subsection{Variablenbelegung}
+Es sei $(D, I)$ eine Interpretation von $\Sigma$. \\
+Eine \textit{Variablenbelegung} (oder kurz \textit{Belegung} \"uber $D$)
+ist eine Funktion
+\[ \beta: Var \rightarrow D. \]
+Zu $\beta, x \in Var$ und $d \in D$ definieren wir die \textit{Modifikation} von $\beta$ and der Stelle $x$ zu $d$:
+\begin{align*}
+    \beta_x^d(y) = \begin{cases}
+        d &\text{ falls } y = x \\
+        \beta(y) &\text{ falls } y \neq x
+    \end{cases}
+\end{align*}
+
+\subsection{Auswertung}
+\paragraph {Auswertung von Termen}
+Sei $(D, I)$ Interpretation von $\Sigma, \beta$ Variablenbelegung \"uber D.
+Wir definieren eine Funktion $val_{D,I,\beta}$, mit
+\begin{align*}
+    val_{D,I,\beta}(t) \in D & \text{ f\"ur } t \in Term_\Sigma \\
+    val_{D,I,\beta}(A) \in \{W, F\} & \text{ f\"ur } A \in For_\Sigma
+\end{align*}
+
+\paragraph{Auswertung von Formeln}
+\begin{align*}
+val_{D,I,\beta} (1) &= W \\
+val_{D,I,\beta} (0) &= F \\
+val_{D,I,\beta}(s\doteq t) &:= \begin{cases}
+    W &\text{ falls } val_{D,I,\beta}(s) = val_{D,I,\beta}(t) \\
+    F &\text{ sonst}
+\end{cases} \\
+val_{D,I,\beta}(P) &:= I(P) \text{ f\"ur 0-stellige Pr\"adikate } P \\
+val_{D,I,\beta}(p(t_1, \cdots t_n)) &:= \begin{cases}
+    W &\text{ falls } (val_{D,I,\beta}(t_1), \cdots, val_{D,I,\beta}(t_n))
+    \in I(p) \\
+    F &\text{ sonst }
+\end{cases} \\
+val_{D,I,\beta} (X) & \text{ f\"ur } X \in \{\lnot A, A \land B, A \lor B, 
+A \rightarrow B, A \leftrightarrow B \} \text{ wie in der 
+Aussagenlogik.} \\
+val_{D,I,\beta}(\forall x A) &:= \begin{cases}
+    W & \text{ falls f\"ur alle } d \in D : val_{D,I,\beta_x^d}(A) = W \\
+    F & \text { sonst}
+\end{cases} \\
+val_{D,I,\beta}(\exists x A) &:= \begin{cases}
+    W & \text{ falls ein } d \in D \text{ existiert mit } val_{D,I,\beta_x^d}(A) = W \\
+    F & \text { sonst}
+\end{cases}
+\end{align*}
+\subsection{Unifikation}
+Es sei $T \subseteq Term_\Sigma, T \neq \{\}$, und $\sigma$ eine Substitution
+\"uber $\Sigma$. \\
+$\sigma$ \textit{unifiziert} $T$, oder: \\
+$\sigma$ ist \textit{Unifikator von T},
+genau dann, wenn $\#\sigma(T) = 1$. \\
+T hei{\ss}t \textit{unifizierbar}, wenn T einen Unifikator besitzt. \\
+Insbesondere sagen wir f\"ur zwei Terme $s, t$ dass $s$ \textit{unifizierbar}
+sei \textit{mit} $t$, wenn $\sigma(t) = \sigma(s)$.
+
+\paragraph{Allgemeinster Unifikator} 
+Es sei $T \subseteq Term_\Sigma$. \\
+Ein \textit{allgemeinster Unifikator} oder mgu (\textit{most general unifier}) von T ist eine Substitution $\mu$ mit
+\begin{enumerate}
+        \item $\mu$ unifiziert $T$
+    \item Zu jedem Unifikator $\sigma$ von $T$ gibt es eine Substitution
+        $\sigma'$ mit $\sigma = \sigma' \circ \mu$.
+\end{enumerate}
+\end{document}
